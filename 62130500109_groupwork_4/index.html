@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Vue Js - HelloWorld App</title>
+
+  <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+  <!-- Using via Google Web Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- https://tailwindcss.com/docs/installation -->
+  <!-- Using Tailwind via CDN -->
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+  <div id="app" class="">
+    <div class="text-center justify-center pb-16">
+      <div class="text-3xl pb-8">{{title}}({{countImage}})</div>
+    <div>
+      <div v-if="searchOpen">
+        <div class="flex justify-center text-xl">
+        <input v-model="inputSearch"
+        class="ml-2 p-1 w-80 h-12 placeholder-gray-500 placeholder-opacity-50 focus:outline-none text-black rounded-sm bg-yellow-200"
+        type="text" placeholder="Enter Pokemon Name ...">
+        <button class="ml-2 p-1 rounded-sm focus:outline-none bg-green-200" 
+          v-on:click="switchOpen">Cancel</button>
+        </div>
+      </div>
+      <i class="material-icons text-4xl" v-on:click="switchOpen" v-else>search</i>
+    </div>
+  </div>
+
+  <div v-if="showImages">
+    <div class="bg-black text-xl rounded font-medium py-4 mx-auto my-auto w-5/12 h-full">
+      <div class="px-auto">
+        <span class="material-icons select-none flex justify-end mt-2 mb-3 mx-1 text-white" v-on:click="hideImage">cancel</span>
+        <img class="w-96 h-screen mx-auto" :src="searchImage[currentIndex].image">
+      </div>
+    </div>
+  </div>
+
+
+    <section class="overflow-hidden text-gray-700 body-font ">
+      <div class="container px-5 py-2 mx-auto lg:pt-2 lg:px-32 text-3xl ">
+          <div v-for="(task,index) in searchImage" class="flex">
+            <img :src="task.image" v-on:dblclick="toggleDone(index)" v-on:click="showImage(index)" class="h-80 w-48 pb-16"/>
+            <div class="my-auto pl-8">{{task.article}}</div>
+            <i class="material-icons text-red-400 my-auto"  v-show="task.done">
+              favorite
+            </i>
+          </div>
+        </div>
+    </section>
+    <p v-if="searchFinding" class="text-center mt-4 text-7xl">No photo.</p>
+  </div>
+
+  <!-- my main.js -->
+  <script src="./main.js"></script>
+</body>
+
+</html>
